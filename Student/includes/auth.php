@@ -1,0 +1,23 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+function requireLogin() {
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit();
+    }
+}
+
+function requireAdmin() {
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit();
+    }
+    if ($_SESSION['role'] != 'admin') {
+        header("Location: ../student/profile.php");
+        exit();
+    }
+}
+?>
